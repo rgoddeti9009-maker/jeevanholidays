@@ -1,0 +1,102 @@
+@import "tailwindcss" source("../");
+
+@theme {
+  --font-display: 'Bricolage Grotesque', 'Mukta', 'Noto Sans Telugu', system-ui, sans-serif;
+  --font-sans: 'Mukta', 'Noto Sans Telugu', system-ui, -apple-system, sans-serif;
+
+  --color-ink: #1b1430;
+  --color-ink-2: #2b2148;
+  --color-paper: #fbf4e8;
+  --color-paper-2: #f3e7d3;
+  --color-saffron: #e8701a;
+  --color-saffron-deep: #c2550b;
+  --color-marigold: #f4b43a;
+  --color-temple: #9e2a2b;
+  --color-leaf: #1f6f5c;
+  --color-muted: #6f6578;
+}
+
+html {
+  font-size: 16px;
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+/* Kiosk mode: everything is rem-based, so a larger root scales the whole UI for touch screens. */
+html[data-kiosk='on'] {
+  font-size: 20px;
+}
+@media (min-width: 1600px) {
+  html[data-kiosk='on'] {
+    font-size: 24px;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+/* Kiosk visitors should never accidentally select text or get a context menu */
+html[data-kiosk='on'] body {
+  user-select: none;
+}
+html[data-kiosk='on'] input,
+html[data-kiosk='on'] textarea {
+  user-select: text;
+}
+
+.paper-grain {
+  background-image:
+    radial-gradient(circle at 20% 0%, rgba(244, 180, 58, 0.18), transparent 45%),
+    radial-gradient(circle at 100% 30%, rgba(232, 112, 26, 0.1), transparent 40%);
+}
+
+/* Rangoli-like dotted rule used as a section divider */
+.dot-rule {
+  height: 8px;
+  background-image: radial-gradient(circle, var(--color-saffron) 1.6px, transparent 2px);
+  background-size: 14px 8px;
+  opacity: 0.55;
+}
+
+.press {
+  transition: transform 120ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+.press:active {
+  transform: scale(0.97);
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+.rise {
+  animation: rise 520ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(232, 112, 26, 0.55); }
+  100% { box-shadow: 0 0 0 28px rgba(232, 112, 26, 0); }
+}
+.mic-live {
+  animation: pulse-ring 1.2s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise, .mic-live { animation: none; }
+}
+
+/* Printing: only the document marked .print-area is printed. */
+@media print {
+  body * { visibility: hidden; }
+  .print-area, .print-area * { visibility: visible; }
+  .print-area { position: absolute; inset: 0; box-shadow: none !important; border: 0 !important; }
+  .no-print { display: none !important; }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Jeevan Holidays Shirdi",
+  "short_name": "Jeevan Holidays",
+  "description": "Book cabs, sightseeing and tour packages from Shirdi — Since 1997.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fbf4e8",
+  "theme_color": "#1b1430",
+  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}
